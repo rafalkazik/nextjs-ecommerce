@@ -2,7 +2,7 @@ import { InferGetServerSidePropsType } from 'next';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Main } from '../components/Main';
-import { Product } from '../components/Product';
+import { ProductListItem } from '../components/Product';
 
 const ProductsPage = ({
   data,
@@ -15,12 +15,12 @@ const ProductsPage = ({
           {data.map((product) => {
             return (
               <li key={product.id}>
-                <Product
+                <ProductListItem
                   data={{
-                    description: product.description,
+                    id: product.id,
+                    title: product.title,
                     thumbnailUrl: product.image,
                     thumbnailAlt: product.title,
-                    rating: product.rating.rate,
                   }}
                 />
               </li>

@@ -1,39 +1,63 @@
 import Link from 'next/link';
 import { Rating } from './Rating';
 
-interface ProductProps {
-  data: {
-    description: string;
-    thumbnailUrl: string;
-    thumbnailAlt: string;
-    rating: number;
-  };
+interface ProductDetails {
+  id: number;
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  thumbnailAlt: string;
+  rating: number;
 }
 
-export const Product = ({ data }: ProductProps) => {
+interface ProductProps {
+  data: ProductDetails;
+}
+
+export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <>
-      <Link href={'/'}>
-        <a className='block'>
-          <div className='flex justify-start'>
-            <strong className='relative h-6 bg-black px-4 text-xs uppercase leading-6 text-white'>
-              New
-            </strong>
-          </div>
+      <img
+        alt={`${data.thumbnailAlt}`}
+        src={`${data.thumbnailUrl}`}
+        className=' h-[350px] w-full object-cover sm:h-[450px] rounded-t-md'
+      />
 
+      <h3 className='mt-4 text-sm text-gray-700 font-black'>{data.title}</h3>
+      <p className='mt-4 text-sm text-gray-700'>{data.description}</p>
+
+      <div className='mt-4 flex items-center justify-between font-medium'>
+        <p>$189.99</p>
+
+        <Rating rating={data.rating} />
+      </div>
+    </>
+  );
+};
+
+type ProductListItem = Pick<
+  ProductDetails,
+  'id' | 'title' | 'thumbnailUrl' | 'thumbnailAlt'
+>;
+
+interface ProductListItemProps {
+  data: ProductListItem;
+}
+
+export const ProductListItem = ({ data }: ProductListItemProps) => {
+  return (
+    <>
+      <Link href={`/products/${data.id}`}>
+        <a className='block border-2 rounded-md h-full pb-2'>
           <img
             alt={`${data.thumbnailAlt}`}
             src={`${data.thumbnailUrl}`}
-            className='-mt-3 h-[350px] w-full object-cover sm:h-[450px]'
+            className=' h-[350px] w-full object-cover sm:h-[450px] rounded-t-md'
           />
 
-          <h3 className='mt-4 text-sm text-gray-700'>{data.description}</h3>
-
-          <div className='mt-4 flex items-center justify-between font-medium'>
-            <p>$189.99</p>
-
-            <p className='text-xs uppercase tracking-wide'>{data.rating}</p>
-          </div>
+          <h3 className='mt-4 text-sm text-gray-700 font-black'>
+            {data.title}
+          </h3>
         </a>
       </Link>
     </>
