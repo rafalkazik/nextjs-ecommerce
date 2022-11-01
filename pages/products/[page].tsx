@@ -53,24 +53,20 @@ const ProductPage = ({
       <Header />
       <Main>
         <ul className='grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            data.map((product: StoreApiResponse) => {
-              return (
-                <li key={product.id}>
-                  <ProductListItem
-                    data={{
-                      id: product.id,
-                      title: product.title,
-                      thumbnailUrl: product.image,
-                      thumbnailAlt: product.title,
-                    }}
-                  />
-                </li>
-              );
-            })
-          )}
+          {data.map((product: StoreApiResponse) => {
+            return (
+              <li key={product.id}>
+                <ProductListItem
+                  data={{
+                    id: product.id,
+                    title: product.title,
+                    thumbnailUrl: product.image,
+                    thumbnailAlt: product.title,
+                  }}
+                />
+              </li>
+            );
+          })}
         </ul>
         <Pagination
           totalItems={TOTAL_ITEMS}
