@@ -20,7 +20,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
       <img
         alt={`${data.thumbnailAlt}`}
         src={`${data.thumbnailUrl}`}
-        className=' h-[350px] w-full object-cover sm:h-[450px] rounded-t-md'
+        className=' h-[350px] w-full object-scale-down sm:h-[450px] rounded-t-md'
       />
 
       <h3 className='mt-4 text-sm text-gray-700 font-black'>{data.title}</h3>
@@ -47,7 +47,7 @@ interface ProductListItemProps {
 export const ProductListItem = ({ data }: ProductListItemProps) => {
   return (
     <>
-      <Link href={`/products/${data.id}`}>
+      <Link href={`/products/item/${data.id}`}>
         <a className='block border-2 rounded-md h-full pb-2'>
           <img
             alt={`${data.thumbnailAlt}`}

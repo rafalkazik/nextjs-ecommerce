@@ -42,9 +42,9 @@ export const Header = () => {
             <Link href='/about'>
               <a
                 className={classNames(
-                  'block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700',
+                  'block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-indigo-700',
                   {
-                    'block h-16 border-b-4 border-current leading-[4rem] text-red-700':
+                    'block h-16 border-b-4 border-current leading-[4rem] text-indigo-700':
                       currentLink === 'about',
                   }
                 )}
@@ -54,13 +54,21 @@ export const Header = () => {
             </Link>
 
             <Link href='/news'>
-              <a className='block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700'>
+              <a className='block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-indigo-700'>
                 News
               </a>
             </Link>
 
             <Link href='/products'>
-              <a className='block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700'>
+              <a
+                className={classNames(
+                  'block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-indigo-700',
+                  {
+                    'block h-16 border-b-4 border-current leading-[4rem] text-indigo-700':
+                      currentLink === 'products',
+                  }
+                )}
+              >
                 Products
               </a>
             </Link>
@@ -68,7 +76,7 @@ export const Header = () => {
             <Link href='/contact'>
               <a
                 href='/contact'
-                className='block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-red-700'
+                className='block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-indigo-700'
               >
                 Contact
               </a>
@@ -80,7 +88,7 @@ export const Header = () => {
               <span>
                 <a
                   href='/cart'
-                  className='block border-b-4 border-transparent p-6 hover:border-red-700'
+                  className='block border-b-4 border-transparent p-6 hover:border-indigo-700'
                 >
                   <svg
                     className='h-4 w-4'
@@ -105,7 +113,7 @@ export const Header = () => {
                 <Link href='/account'>
                   <a
                     href='/account'
-                    className='block border-b-4 border-transparent p-6 hover:border-red-700'
+                    className='block border-b-4 border-transparent p-6 hover:border-indigo-700'
                   >
                     <svg
                       className='h-4 w-4'
@@ -131,7 +139,7 @@ export const Header = () => {
                 <Link href='/search'>
                   <a
                     href='/search'
-                    className='block border-b-4 border-transparent p-6 hover:border-red-700'
+                    className='block border-b-4 border-transparent p-6 hover:border-indigo-700'
                   >
                     <svg
                       className='h-4 w-4'

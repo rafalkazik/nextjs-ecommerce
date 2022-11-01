@@ -1,12 +1,20 @@
 import { InferGetServerSidePropsType } from 'next';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { Main } from '../components/Main';
-import { ProductListItem } from '../components/Product';
+import { useRouter } from 'next/router';
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { Main } from '../../components/Main';
+import Pagination from '../../components/Pagination';
+import { ProductListItem } from '../../components/Product';
+
+const PRODUCT_PER_PAGE = 6;
+const TOTAL_ITEMS = 200;
 
 const ProductsPage = ({
   data,
+  currentPage,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+
   return (
     <>
       <Header />
@@ -27,19 +35,28 @@ const ProductsPage = ({
             );
           })}
         </ul>
+        <Pagination
+          totalItems={TOTAL_ITEMS}
+          currentPage={currentPage}
+          itemsPerPage={PRODUCT_PER_PAGE}
+          renderPageLink={(page) => `/products/${page}`}
+        />
       </Main>
       <Footer />
     </>
   );
 };
 
-export const getStaticProps = async () => {
-  const res = await fetch(`https://fakestoreapi.com/products/`);
+export const getStaticProps = async (params: any) => {
+  const res = await fetch(
+    `https://naszsklep-api.vercel.app/api/products?take=${PRODUCT_PER_PAGE}&offset=${0}`
+  );
   const data: StoreApiResponse[] = await res.json();
 
   return {
     props: {
       data,
+      currentPage: 1,
     },
   };
 };
