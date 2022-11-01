@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { Main } from '../../components/Main';
@@ -19,25 +20,57 @@ const ProductPage = ({
     return <div>Coś poszło nie tak... :/</div>;
   }
 
+  if (router.isFallback) {
+    console.log('yes');
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [loading, setLoading] = useState(false);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const handleStart = (url: string) =>
+      url !== router.asPath && setLoading(true);
+
+    const handleComplete = (url: string) =>
+      url === router.asPath &&
+      setTimeout(() => {
+        setLoading(false);
+      }, 5000);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  });
+
   return (
     <>
       <Header />
       <Main>
         <ul className='grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>
-          {data.map((product: any) => {
-            return (
-              <li key={product.id}>
-                <ProductListItem
-                  data={{
-                    id: product.id,
-                    title: product.title,
-                    thumbnailUrl: product.image,
-                    thumbnailAlt: product.title,
-                  }}
-                />
-              </li>
-            );
-          })}
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            data.map((product: StoreApiResponse) => {
+              return (
+                <li key={product.id}>
+                  <ProductListItem
+                    data={{
+                      id: product.id,
+                      title: product.title,
+                      thumbnailUrl: product.image,
+                      thumbnailAlt: product.title,
+                    }}
+                  />
+                </li>
+              );
+            })
+          )}
         </ul>
         <Pagination
           totalItems={TOTAL_ITEMS}

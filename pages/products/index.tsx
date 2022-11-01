@@ -47,7 +47,7 @@ const ProductsPage = ({
   );
 };
 
-export const getStaticProps = async (params: any) => {
+export const getStaticProps = async () => {
   const res = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${PRODUCT_PER_PAGE}&offset=${0}`
   );
