@@ -65,7 +65,7 @@ export const Header = () => {
                   'block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-indigo-700',
                   {
                     'block h-16 border-b-4 border-current leading-[4rem] text-indigo-700':
-                      currentLink === 'products',
+                      router.route.includes('products'),
                   }
                 )}
               >
