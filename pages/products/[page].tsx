@@ -8,7 +8,7 @@ import Pagination from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
 
 const PRODUCT_PER_PAGE = 6;
-const TOTAL_ITEMS = 200;
+const TOTAL_ITEMS = 50;
 
 const ProductPage = ({
   data,
