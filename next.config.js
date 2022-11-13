@@ -5,6 +5,7 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     domains: ['naszsklep-api.vercel.app', 'picsum.photos'],
+    formats: ['image/avif', 'image/webp'],
   },
 };
 
