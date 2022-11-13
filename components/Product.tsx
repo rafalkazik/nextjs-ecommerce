@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from './Rating';
 
@@ -17,9 +18,13 @@ interface ProductProps {
 export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <>
-      <img
+      <Image
         alt={`${data.thumbnailAlt}`}
         src={`${data.thumbnailUrl}`}
+        width={16}
+        height={9}
+        layout='responsive'
+        objectFit='contain'
         className=' h-[350px] w-full object-scale-down sm:h-[450px] rounded-t-md'
       />
 
@@ -49,12 +54,17 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
     <>
       <Link href={`/products/item/${data.id}`}>
         <a className='block border-2 rounded-md h-full pb-2'>
-          <img
-            alt={`${data.thumbnailAlt}`}
-            src={`${data.thumbnailUrl}`}
-            className=' h-[350px] w-full object-cover sm:h-[450px] rounded-t-md'
-          />
-
+          <div className='bg-white'>
+            <Image
+              alt={`${data.thumbnailAlt}`}
+              src={`${data.thumbnailUrl}`}
+              width={16}
+              height={9}
+              layout='responsive'
+              objectFit='contain'
+              className=' h-[350px] w-full object-cover sm:h-[450px] rounded-t-md'
+            />
+          </div>
           <h3 className='mt-4 text-sm text-gray-700 font-black'>
             {data.title}
           </h3>
