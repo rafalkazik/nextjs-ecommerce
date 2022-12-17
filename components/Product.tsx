@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from './Rating';
 import ReactMarkdown from 'react-markdown';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 interface ProductDetails {
   id: number;
@@ -21,10 +21,24 @@ interface ProductProps {
 export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <>
-      <Head>
-        <title>{data.title}</title>
-        <meta name='description' content={data.description} />
-      </Head>
+      <NextSeo
+        title={data.title}
+        description={data.description}
+        canonical={`https://nextjs-ecommerce-rafalkazik.vercel.app/products/item/${data.id}`}
+        openGraph={{
+          url: `https://nextjs-ecommerce-rafalkazik.vercel.app/products/item/${data.id}`,
+          title: data.title,
+          description: data.description,
+          images: [
+            {
+              url: data.thumbnailUrl,
+              alt: data.thumbnailAlt,
+              type: 'image/jpeg',
+            },
+          ],
+          siteName: 'NextJS ecommerce',
+        }}
+      />
       <Image
         alt={`${data.thumbnailAlt}`}
         src={`${data.thumbnailUrl}`}
