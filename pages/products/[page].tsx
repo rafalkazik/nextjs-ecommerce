@@ -1,8 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
 import { Main } from '../../components/Main';
 import Pagination from '../../components/Pagination';
 import { ProductListItem } from '../../components/Product';
@@ -26,7 +23,6 @@ const ProductPage = ({
 
   return (
     <>
-      <Header />
       <Main>
         <ul className='grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 lg:grid-cols-3'>
           {data.map((product: StoreApiResponse) => {
@@ -51,7 +47,6 @@ const ProductPage = ({
           renderPageLink={(page) => `/products/${page}`}
         />
       </Main>
-      <Footer />
     </>
   );
 };

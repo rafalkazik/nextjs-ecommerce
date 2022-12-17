@@ -1,6 +1,3 @@
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { Main } from '../components/Main';
 import { ProductDetails } from '../components/Product';
 
 const DATA = {
@@ -16,13 +13,7 @@ const DATA = {
 const Home = () => {
   return (
     <>
-      <div className='flex flex-col min-h-screen bg-gray-50'>
-        <Header />
-        <Main>
-          <ProductDetails data={DATA} />
-        </Main>
-        <Footer />
-      </div>
+      <ProductDetails data={DATA} />
     </>
   );
 };
