@@ -9,6 +9,7 @@ interface ProductDetails {
   thumbnailUrl: string;
   thumbnailAlt: string;
   rating: number;
+  longDescription?: string;
 }
 
 interface ProductProps {
