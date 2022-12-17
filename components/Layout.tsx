@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { ReactNode } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -9,6 +10,10 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className='flex flex-col min-h-screen bg-gray-50'>
+      <Head>
+        <title>Test</title>
+        <meta name='description' content='Test' />
+      </Head>
       <Header />
       <div className='flex-grow'>{children}</div>
       <Footer />

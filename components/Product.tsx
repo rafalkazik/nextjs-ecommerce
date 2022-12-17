@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from './Rating';
+import ReactMarkdown from 'react-markdown';
+import Head from 'next/head';
 
 interface ProductDetails {
   id: number;
@@ -9,7 +11,7 @@ interface ProductDetails {
   thumbnailUrl: string;
   thumbnailAlt: string;
   rating: number;
-  longDescription?: string;
+  longDescription: string;
 }
 
 interface ProductProps {
@@ -19,6 +21,10 @@ interface ProductProps {
 export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <>
+      <Head>
+        <title>{data.title}</title>
+        <meta name='description' content={data.description} />
+      </Head>
       <Image
         alt={`${data.thumbnailAlt}`}
         src={`${data.thumbnailUrl}`}
@@ -29,11 +35,15 @@ export const ProductDetails = ({ data }: ProductProps) => {
         className=' h-[350px] w-full object-scale-down sm:h-[450px] rounded-t-md'
       />
 
-      <h3 className='mt-4 text-sm text-gray-700 font-black'>{data.title}</h3>
-      <p className='mt-4 text-sm text-gray-700'>{data.description}</p>
-
+      <h3 className='mt-4 text-sm text-gray-700 font-black p-4'>
+        {data.title}
+      </h3>
+      <p className='mt-4 text-sm text-gray-700 p-4'>{data.description}</p>
+      <article className='prose lg:prose-xl p-4'>
+        <ReactMarkdown>{data.longDescription}</ReactMarkdown>
+      </article>
       <div className='mt-4 flex items-center justify-between font-medium'>
-        <p>$189.99</p>
+        <p className='p-4'>$189.99</p>
 
         <Rating rating={data.rating} />
       </div>
