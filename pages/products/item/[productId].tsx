@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
-import { serialize } from 'next-mdx-remote/serialize';
 
 const ProductIdPage = ({
   data,
