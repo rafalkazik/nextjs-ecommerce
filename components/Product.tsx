@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from './Rating';
-import ReactMarkdown from 'react-markdown';
 import { NextSeo } from 'next-seo';
+import ContentReactMarkdown from './ContentReactMarkdown';
 
 interface ProductDetails {
   id: number;
@@ -54,7 +54,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
       </h3>
       <p className='mt-4 text-sm text-gray-700 p-4'>{data.description}</p>
       <article className='prose lg:prose-xl p-4'>
-        <ReactMarkdown>{data.longDescription}</ReactMarkdown>
+        <ContentReactMarkdown>{data.longDescription}</ContentReactMarkdown>
       </article>
       <div className='mt-4 flex items-center justify-between font-medium'>
         <p className='p-4'>$189.99</p>

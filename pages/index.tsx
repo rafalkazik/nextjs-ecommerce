@@ -2,7 +2,7 @@ import { ProductDetails } from '../components/Product';
 
 const DATA = {
   id: 1,
-  title: 'title',
+  title: 'something',
   description:
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quidem rem fugiat cum et incidunt, quisquam expedita, quaerat vitae animi minus reiciendis. Id sed neque laudantium distinctio quo rerum velit!',
   longDescription:
