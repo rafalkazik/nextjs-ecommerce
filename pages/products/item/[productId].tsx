@@ -58,6 +58,13 @@ export const getStaticProps = async ({
   );
   const data: StoreApiResponse | null = await res.json();
 
+  if (!data) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       data,
