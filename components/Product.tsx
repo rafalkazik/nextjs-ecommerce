@@ -76,9 +76,9 @@ interface ProductListItemProps {
 
 export const ProductListItem = ({ data }: ProductListItemProps) => {
   return (
-    <>
+    <div className='block border-2 rounded-md h-full pb-2'>
       <Link href={`/products/item/${data.id}`}>
-        <a className='block border-2 rounded-md h-full pb-2'>
+        <a className='block'>
           <div className='bg-white'>
             <Image
               alt={`${data.thumbnailAlt}`}
@@ -95,6 +95,9 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
           </h3>
         </a>
       </Link>
-    </>
+      <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+        Dodaj do koszyka
+      </button>
+    </div>
   );
 };
