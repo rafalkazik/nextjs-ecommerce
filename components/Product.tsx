@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Rating } from './Rating';
 import { NextSeo } from 'next-seo';
 import ContentReactMarkdown from './ContentReactMarkdown';
+import { useCartState } from './Cart/CartBar';
 
 interface ProductDetails {
   id: number;
@@ -75,6 +76,8 @@ interface ProductListItemProps {
 }
 
 export const ProductListItem = ({ data }: ProductListItemProps) => {
+  const cartState = useCartState();
+
   return (
     <div className='block border-2 rounded-md h-full pb-2'>
       <Link href={`/products/item/${data.id}`}>
@@ -95,7 +98,15 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
           </h3>
         </a>
       </Link>
-      <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+      <button
+        onClick={() => {
+          cartState.addItemToCart({
+            price: 20,
+            title: data.title,
+          });
+        }}
+        className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+      >
         Dodaj do koszyka
       </button>
     </div>
