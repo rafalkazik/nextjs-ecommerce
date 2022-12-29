@@ -101,8 +101,10 @@ export const ProductListItem = ({ data }: ProductListItemProps) => {
       <button
         onClick={() => {
           cartState.addItemToCart({
+            id: data.id,
             price: 20,
             title: data.title,
+            count: 1,
           });
         }}
         className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'

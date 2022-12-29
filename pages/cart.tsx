@@ -8,10 +8,16 @@ const CartContent = () => {
         {cartState.items.map((item, index) => (
           <li key={index} className='py-4'>
             <div className='flex justify-between'>
-              <div>{item.title}</div>
+              <div>
+                {item.count} x {item.title}
+              </div>
               <div className='flex gap-2'>
                 {item.price} PLN
-                <button>
+                <button
+                  onClick={() => {
+                    cartState.removeItemFromCart(item.id);
+                  }}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
