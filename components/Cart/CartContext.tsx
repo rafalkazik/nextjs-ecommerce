@@ -25,7 +25,6 @@ export const CartStateContextProvider = ({
 
   useEffect(() => {
     setCartItems(getCartItemsFromStorage());
-    console.log(getCartItemsFromStorage());
   }, []);
 
   useEffect(() => {
