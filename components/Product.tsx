@@ -6,7 +6,7 @@ import ContentReactMarkdown from './ContentReactMarkdown';
 import { useCartState } from './Cart/CartBar';
 
 interface ProductDetails {
-  id: number;
+  id: string;
   title: string;
   description: string;
   thumbnailUrl: string;

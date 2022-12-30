@@ -1,5 +1,13 @@
+import { gql } from '@apollo/client';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
+import { apolloClient } from '../../../graphql/apolloClient';
+import {
+  GetProductDetailsDocument,
+  GetProductDetailsQuery,
+  GetProductsSlugsDocument,
+  GetProductsSlugsQuery,
+} from '../../../src/gql/graphql';
 
 const ProductIdPage = ({
   data,
@@ -13,12 +21,12 @@ const ProductIdPage = ({
       <ProductDetails
         data={{
           id: data.id,
-          title: data.title,
+          title: data.name,
           description: data.description,
-          thumbnailUrl: data.image,
-          thumbnailAlt: data.title,
-          rating: data.rating.rate,
-          longDescription: data.longDescription,
+          thumbnailUrl: data.images[0].url,
+          thumbnailAlt: data.name,
+          rating: 5,
+          longDescription: data.description,
         }}
       />
     </div>
@@ -28,14 +36,15 @@ const ProductIdPage = ({
 export default ProductIdPage;
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://naszsklep-api.vercel.app/api/products/`);
-  const data: StoreApiResponse[] = await res.json();
+  const { data } = await apolloClient.query<GetProductsSlugsQuery>({
+    query: GetProductsSlugsDocument,
+  });
 
   return {
-    paths: data.map((product) => {
+    paths: data.products.map((product) => {
       return {
         params: {
-          productId: product.id.toString(),
+          productId: product.slug,
         },
       };
     }),
@@ -53,10 +62,12 @@ export const getStaticProps = async ({
     };
   }
 
-  const res = await fetch(
-    `https://naszsklep-api.vercel.app/api/products/${params?.productId}`
-  );
-  const data: StoreApiResponse | null = await res.json();
+  const { data } = await apolloClient.query<GetProductDetailsQuery>({
+    variables: {
+      slug: params.productId,
+    },
+    query: GetProductDetailsDocument,
+  });
 
   if (!data) {
     return {
@@ -67,18 +78,7 @@ export const getStaticProps = async ({
 
   return {
     props: {
-      data,
+      data: { ...data.products[0] },
     },
   };
 };
-
-export interface StoreApiResponse {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  longDescription: string;
-  rating: { rate: number; count: number };
-}
