@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { getCartItemsFromStorage, setCartItemsToStorage } from './cartModel';
 
 interface CartItem {
-  id: number;
+  id: string;
   price: number;
   title: string;
   count: number;
