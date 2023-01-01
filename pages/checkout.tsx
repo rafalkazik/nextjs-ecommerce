@@ -1,9 +1,10 @@
+import CheckoutForm from '../components/CheckoutForm';
 import { Main } from '../components/Main';
 
 const CheckoutPage = () => {
   return (
     <Main>
-      <p>Test</p>
+      <CheckoutForm />
     </Main>
   );
 };
