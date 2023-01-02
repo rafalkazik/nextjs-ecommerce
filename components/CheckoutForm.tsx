@@ -1,3 +1,14 @@
+interface CheckoutFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  adress: string;
+  city: string;
+  province: string;
+  postalCode: string;
+}
+
 const CheckoutForm = () => {
   return (
     <section>
@@ -9,7 +20,7 @@ const CheckoutForm = () => {
             <form className='grid grid-cols-6 gap-4'>
               <div className='col-span-3'>
                 <label
-                  htmlFor='FirstName'
+                  htmlFor='firstName'
                   className='block text-xs font-medium text-gray-700'
                 >
                   First Name
@@ -17,14 +28,15 @@ const CheckoutForm = () => {
 
                 <input
                   type='text'
-                  id='FirstName'
+                  id='first-name'
+                  name='firstName'
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
 
               <div className='col-span-3'>
                 <label
-                  htmlFor='LastName'
+                  htmlFor='lastName'
                   className='block text-xs font-medium text-gray-700'
                 >
                   Last Name
@@ -32,14 +44,15 @@ const CheckoutForm = () => {
 
                 <input
                   type='text'
-                  id='LastName'
+                  id='last-name'
+                  name='lastName'
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
 
               <div className='col-span-6'>
                 <label
-                  htmlFor='Email'
+                  htmlFor='email'
                   className='block text-xs font-medium text-gray-700'
                 >
                   Email
@@ -47,14 +60,15 @@ const CheckoutForm = () => {
 
                 <input
                   type='email'
-                  id='Email'
+                  id='email'
+                  name='email'
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
 
               <div className='col-span-6'>
                 <label
-                  htmlFor='Phone'
+                  htmlFor='phone'
                   className='block text-xs font-medium text-gray-700'
                 >
                   Phone
@@ -62,26 +76,90 @@ const CheckoutForm = () => {
 
                 <input
                   type='tel'
-                  id='Phone'
+                  id='phone'
+                  name='phone'
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
 
-              <fieldset className='col-span-6'>
+              <div className='col-span-6'>
+                <label
+                  htmlFor='adress'
+                  className='block text-xs font-medium text-gray-700'
+                >
+                  Apartment, suite, etc.
+                </label>
+
+                <input
+                  type='text'
+                  id='adress'
+                  name='adress'
+                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                />
+              </div>
+
+              <div className='col-span-6'>
+                <label
+                  htmlFor='city'
+                  className='block text-xs font-medium text-gray-700'
+                >
+                  City
+                </label>
+
+                <input
+                  type='text'
+                  id='city'
+                  name='city'
+                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                />
+              </div>
+              <div className='col-span-3'>
+                <label
+                  htmlFor='province'
+                  className='block text-xs font-medium text-gray-700'
+                >
+                  State / Province
+                </label>
+
+                <input
+                  type='text'
+                  id='province'
+                  name='province'
+                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                />
+              </div>
+              <div className='col-span-3'>
+                <label
+                  htmlFor='postalCode'
+                  className='block text-xs font-medium text-gray-700'
+                >
+                  Postal code
+                </label>
+
+                <input
+                  type='text'
+                  id='postal-code'
+                  name='postalCode'
+                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                />
+              </div>
+
+              {/* <fieldset className='col-span-6'>
                 <legend className='block text-sm font-medium text-gray-700'>
                   Card Details
                 </legend>
 
                 <div className='mt-1 -space-y-px bg-white rounded-md shadow-sm'>
                   <div>
-                    <label htmlFor='CardNumber' className='sr-only'>
+                    <label htmlFor='cardNumber' className='sr-only'>
                       {' '}
                       Card Number{' '}
                     </label>
 
                     <input
                       type='text'
-                      id='CardNumber'
+                      id='card-number'
+                      name='cardNumber'
                       placeholder='Card Number'
                       className='relative w-full mt-1 border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
                     />
@@ -89,49 +167,52 @@ const CheckoutForm = () => {
 
                   <div className='flex -space-x-px'>
                     <div className='flex-1'>
-                      <label htmlFor='CardExpiry' className='sr-only'>
+                      <label htmlFor='cardExpiry' className='sr-only'>
                         {' '}
                         Card Expiry{' '}
                       </label>
 
                       <input
                         type='text'
-                        id='CardExpiry'
+                        id='card-expiry'
+                        name='cardExpiry'
                         placeholder='Expiry Date'
                         className='relative w-full border-gray-200 rounded-bl-md focus:z-10 sm:text-sm'
                       />
                     </div>
 
                     <div className='flex-1'>
-                      <label htmlFor='CardCVC' className='sr-only'>
+                      <label htmlFor='cardCVC' className='sr-only'>
                         {' '}
                         Card CVC{' '}
                       </label>
 
                       <input
                         type='text'
-                        id='CardCVC'
+                        id='card-cvc'
+                        name='cardCVC'
                         placeholder='CVC'
                         className='relative w-full border-gray-200 rounded-br-md focus:z-10 sm:text-sm'
                       />
                     </div>
                   </div>
                 </div>
-              </fieldset>
+              </fieldset> */}
 
-              <fieldset className='col-span-6'>
+              {/* <fieldset className='col-span-6'>
                 <legend className='block text-sm font-medium text-gray-700'>
                   Billing Address
                 </legend>
 
                 <div className='mt-1 -space-y-px bg-white rounded-md shadow-sm'>
                   <div>
-                    <label htmlFor='Country' className='sr-only'>
+                    <label htmlFor='country' className='sr-only'>
                       Country
                     </label>
 
                     <select
-                      id='Country'
+                      id='country'
+                      name="country"
                       className='relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
                     >
                       <option>England</option>
@@ -140,24 +221,25 @@ const CheckoutForm = () => {
                       <option>France</option>
                       <option>Belgium</option>
                       <option>Japan</option>
+                      <option>Poland</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className='sr-only' htmlFor='PostalCode'>
+                    <label className='sr-only' htmlFor='postalCode'>
                       {' '}
                       ZIP/Post Code{' '}
                     </label>
 
                     <input
                       type='text'
-                      id='PostalCode'
+                      id='postal-code'
                       placeholder='ZIP/Post Code'
                       className='relative w-full border-gray-200 rounded-b-md focus:z-10 sm:text-sm'
                     />
                   </div>
                 </div>
-              </fieldset>
+              </fieldset> */}
 
               <div className='col-span-6'>
                 <button className='block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg'>
@@ -170,12 +252,6 @@ const CheckoutForm = () => {
 
         <div className='py-12 bg-gray-50 md:py-24'>
           <div className='max-w-lg px-4 mx-auto space-y-8 lg:px-8'>
-            {/* <div className='flex items-center'>
-              <span className='w-10 h-10 bg-blue-700 rounded-full'></span>
-
-              <h2 className='ml-4 font-medium text-gray-900'>BambooYou</h2>
-            </div> */}
-
             <div>
               <p className='text-2xl font-medium tracking-tight text-gray-900'>
                 $99.99
