@@ -1,3 +1,5 @@
+import { ChangeEventHandler, useState } from 'react';
+
 interface CheckoutFormData {
   firstName: string;
   lastName: string;
@@ -10,6 +12,11 @@ interface CheckoutFormData {
 }
 
 const CheckoutForm = () => {
+  const [firstName, setFirstName] = useState('');
+  const handleFirstNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setFirstName(e.target.value);
+  };
+
   return (
     <section>
       <h1 className='sr-only'>Checkout</h1>
@@ -31,6 +38,8 @@ const CheckoutForm = () => {
                   id='first-name'
                   name='firstName'
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  value={firstName}
+                  onChange={handleFirstNameChange}
                 />
               </div>
 
