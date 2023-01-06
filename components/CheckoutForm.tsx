@@ -1,6 +1,7 @@
-import { ChangeEventHandler, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormInput } from './FormInput';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 export interface CheckoutFormData {
   firstName: string;
@@ -13,24 +14,59 @@ export interface CheckoutFormData {
   postalCode: string;
 }
 
-const CheckoutForm = () => {
-  // const [firstName, setFirstName] = useState('');
-  // const handleFirstNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-  //   setFirstName(e.target.value);
-  // };
+const schema = yup
+  .object({
+    firstName: yup
+      .string()
+      .required('This field is required.')
+      .min(2, 'This value is too short.')
+      .max(25, 'This value is too long.'),
+    lastName: yup
+      .string()
+      .required('This field is required.')
+      .min(2, 'This value is too short.')
+      .max(25, 'This value is too long.'),
+    email: yup.string().email().required('This field is required.'),
+    phone: yup
+      .string()
+      .required('This field is required.')
+      .matches(/^\d{6,15}$/, 'Type only numbers.'),
+    adress: yup
+      .string()
+      .required('This field is required.')
+      .min(2, 'This value is too short.')
+      .max(30, 'This value is too long.'),
+    city: yup
+      .string()
+      .required('This field is required.')
+      .min(2, 'This value is too short.')
+      .max(25, 'This value is too long.'),
+    province: yup
+      .string()
+      .required('This field is required.')
+      .min(2, 'This value is too short.')
+      .max(25, 'This value is too long.'),
+    postalCode: yup
+      .string()
+      .required('This field is required.')
+      .matches(/^\d{2}-\d{3}$/, 'Postal code is wrong!'),
+  })
+  .required();
 
+const CheckoutForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-  } = useForm<CheckoutFormData>();
+  } = useForm<CheckoutFormData>({
+    resolver: yupResolver(schema),
+  });
+
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <section>
       <h1 className='sr-only'>Checkout</h1>
-
       <div className='grid grid-cols-1 mx-auto max-w-screen-2xl md:grid-cols-2'>
         <div className='py-12 md:py-24'>
           <div className='max-w-lg px-4 mx-auto lg:px-8'>
@@ -80,11 +116,14 @@ const CheckoutForm = () => {
                   Email
                 </label>
 
-                <input
-                  type='email'
-                  id='email'
-                  {...register('email')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                <FormInput
+                  fieldName='email'
+                  type='text'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
 
@@ -96,11 +135,14 @@ const CheckoutForm = () => {
                   Phone
                 </label>
 
-                <input
-                  type='tel'
-                  id='phone'
-                  {...register('phone')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                <FormInput
+                  fieldName='phone'
+                  type='text'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={12}
+                  minimLength={6}
                 />
               </div>
 
@@ -112,11 +154,14 @@ const CheckoutForm = () => {
                   Apartment, suite, etc.
                 </label>
 
-                <input
+                <FormInput
+                  fieldName='adress'
                   type='text'
-                  id='adress'
-                  {...register('adress')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
 
@@ -128,11 +173,14 @@ const CheckoutForm = () => {
                   City
                 </label>
 
-                <input
+                <FormInput
+                  fieldName='city'
                   type='text'
-                  id='city'
-                  {...register('city')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
               <div className='col-span-3'>
@@ -143,11 +191,14 @@ const CheckoutForm = () => {
                   State / Province
                 </label>
 
-                <input
+                <FormInput
+                  fieldName='province'
                   type='text'
-                  id='province'
-                  {...register('province')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
               <div className='col-span-3'>
@@ -158,111 +209,16 @@ const CheckoutForm = () => {
                   Postal code
                 </label>
 
-                <input
+                <FormInput
+                  fieldName='postalCode'
                   type='text'
-                  id='postal-code'
-                  {...register('postalCode')}
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
-
-              {/* <fieldset className='col-span-6'>
-                <legend className='block text-sm font-medium text-gray-700'>
-                  Card Details
-                </legend>
-
-                <div className='mt-1 -space-y-px bg-white rounded-md shadow-sm'>
-                  <div>
-                    <label htmlFor='cardNumber' className='sr-only'>
-                      {' '}
-                      Card Number{' '}
-                    </label>
-
-                    <input
-                      type='text'
-                      id='card-number'
-                     {...register('cardNumber'
-                      placeholder='Card Number'
-                      className='relative w-full mt-1 border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
-                    />
-                  </div>
-
-                  <div className='flex -space-x-px'>
-                    <div className='flex-1'>
-                      <label htmlFor='cardExpiry' className='sr-only'>
-                        {' '}
-                        Card Expiry{' '}
-                      </label>
-
-                      <input
-                        type='text'
-                        id='card-expiry'
-                       {...register('cardExpiry'
-                        placeholder='Expiry Date'
-                        className='relative w-full border-gray-200 rounded-bl-md focus:z-10 sm:text-sm'
-                      />
-                    </div>
-
-                    <div className='flex-1'>
-                      <label htmlFor='cardCVC' className='sr-only'>
-                        {' '}
-                        Card CVC{' '}
-                      </label>
-
-                      <input
-                        type='text'
-                        id='card-cvc'
-                       {...register('cardCVC'
-                        placeholder='CVC'
-                        className='relative w-full border-gray-200 rounded-br-md focus:z-10 sm:text-sm'
-                      />
-                    </div>
-                  </div>
-                </div>
-              </fieldset> */}
-
-              {/* <fieldset className='col-span-6'>
-                <legend className='block text-sm font-medium text-gray-700'>
-                  Billing Address
-                </legend>
-
-                <div className='mt-1 -space-y-px bg-white rounded-md shadow-sm'>
-                  <div>
-                    <label htmlFor='country' className='sr-only'>
-                      Country
-                    </label>
-
-                    <select
-                      id='country'
-                     {...register("country"
-                      className='relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
-                    >
-                      <option>England</option>
-                      <option>Wales</option>
-                      <option>Scotland</option>
-                      <option>France</option>
-                      <option>Belgium</option>
-                      <option>Japan</option>
-                      <option>Poland</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className='sr-only' htmlFor='postalCode'>
-                      {' '}
-                      ZIP/Post Code{' '}
-                    </label>
-
-                    <input
-                      type='text'
-                      id='postal-code'
-                      placeholder='ZIP/Post Code'
-                      className='relative w-full border-gray-200 rounded-b-md focus:z-10 sm:text-sm'
-                    />
-                  </div>
-                </div>
-              </fieldset> */}
-
               <div className='col-span-6'>
                 <button
                   type='submit'
