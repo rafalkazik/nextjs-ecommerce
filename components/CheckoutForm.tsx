@@ -1,6 +1,8 @@
 import { ChangeEventHandler, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FormInput } from './FormInput';
 
-interface CheckoutFormData {
+export interface CheckoutFormData {
   firstName: string;
   lastName: string;
   email: string;
@@ -12,10 +14,18 @@ interface CheckoutFormData {
 }
 
 const CheckoutForm = () => {
-  const [firstName, setFirstName] = useState('');
-  const handleFirstNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setFirstName(e.target.value);
-  };
+  // const [firstName, setFirstName] = useState('');
+  // const handleFirstNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  //   setFirstName(e.target.value);
+  // };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<CheckoutFormData>();
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <section>
@@ -24,7 +34,7 @@ const CheckoutForm = () => {
       <div className='grid grid-cols-1 mx-auto max-w-screen-2xl md:grid-cols-2'>
         <div className='py-12 md:py-24'>
           <div className='max-w-lg px-4 mx-auto lg:px-8'>
-            <form className='grid grid-cols-6 gap-4'>
+            <form className='grid grid-cols-6 gap-4' onSubmit={onSubmit}>
               <div className='col-span-3'>
                 <label
                   htmlFor='firstName'
@@ -32,14 +42,14 @@ const CheckoutForm = () => {
                 >
                   First Name
                 </label>
-
-                <input
+                <FormInput
+                  fieldName='firstName'
                   type='text'
-                  id='first-name'
-                  name='firstName'
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
-                  value={firstName}
-                  onChange={handleFirstNameChange}
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
 
@@ -51,11 +61,14 @@ const CheckoutForm = () => {
                   Last Name
                 </label>
 
-                <input
+                <FormInput
+                  fieldName='lastName'
                   type='text'
-                  id='last-name'
-                  name='lastName'
-                  className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
+                  register={register}
+                  errors={errors}
+                  isRequired={true}
+                  maximLength={20}
+                  minimLength={2}
                 />
               </div>
 
@@ -70,7 +83,7 @@ const CheckoutForm = () => {
                 <input
                   type='email'
                   id='email'
-                  name='email'
+                  {...register('email')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -86,7 +99,7 @@ const CheckoutForm = () => {
                 <input
                   type='tel'
                   id='phone'
-                  name='phone'
+                  {...register('phone')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -102,7 +115,7 @@ const CheckoutForm = () => {
                 <input
                   type='text'
                   id='adress'
-                  name='adress'
+                  {...register('adress')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -118,7 +131,7 @@ const CheckoutForm = () => {
                 <input
                   type='text'
                   id='city'
-                  name='city'
+                  {...register('city')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -133,7 +146,7 @@ const CheckoutForm = () => {
                 <input
                   type='text'
                   id='province'
-                  name='province'
+                  {...register('province')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -148,7 +161,7 @@ const CheckoutForm = () => {
                 <input
                   type='text'
                   id='postal-code'
-                  name='postalCode'
+                  {...register('postalCode')}
                   className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
                 />
               </div>
@@ -168,7 +181,7 @@ const CheckoutForm = () => {
                     <input
                       type='text'
                       id='card-number'
-                      name='cardNumber'
+                     {...register('cardNumber'
                       placeholder='Card Number'
                       className='relative w-full mt-1 border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
                     />
@@ -184,7 +197,7 @@ const CheckoutForm = () => {
                       <input
                         type='text'
                         id='card-expiry'
-                        name='cardExpiry'
+                       {...register('cardExpiry'
                         placeholder='Expiry Date'
                         className='relative w-full border-gray-200 rounded-bl-md focus:z-10 sm:text-sm'
                       />
@@ -199,7 +212,7 @@ const CheckoutForm = () => {
                       <input
                         type='text'
                         id='card-cvc'
-                        name='cardCVC'
+                       {...register('cardCVC'
                         placeholder='CVC'
                         className='relative w-full border-gray-200 rounded-br-md focus:z-10 sm:text-sm'
                       />
@@ -221,7 +234,7 @@ const CheckoutForm = () => {
 
                     <select
                       id='country'
-                      name="country"
+                     {...register("country"
                       className='relative w-full border-gray-200 rounded-t-md focus:z-10 sm:text-sm'
                     >
                       <option>England</option>
@@ -251,7 +264,10 @@ const CheckoutForm = () => {
               </fieldset> */}
 
               <div className='col-span-6'>
-                <button className='block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg'>
+                <button
+                  type='submit'
+                  className='block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg'
+                >
                   Pay Now
                 </button>
               </div>
