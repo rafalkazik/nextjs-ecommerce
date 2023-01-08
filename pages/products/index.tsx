@@ -8,7 +8,7 @@ import { apolloClient } from '../../graphql/apolloClient';
 import {
   GetProductsListDocument,
   GetProductsListQuery,
-} from '../../src/gql/graphql';
+} from '../../generated/graphql';
 
 const PRODUCT_PER_PAGE = 6;
 const TOTAL_ITEMS = 50;

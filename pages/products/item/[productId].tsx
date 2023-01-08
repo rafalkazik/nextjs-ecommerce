@@ -7,7 +7,7 @@ import {
   GetProductDetailsQuery,
   GetProductsSlugsDocument,
   GetProductsSlugsQuery,
-} from '../../../src/gql/graphql';
+} from '../../../generated/graphql';
 
 const ProductIdPage = ({
   data,
