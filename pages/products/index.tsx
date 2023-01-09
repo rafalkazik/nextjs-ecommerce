@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import { InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { Main } from '../../components/Main';
