@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ProductDetails } from '../../../components/Product';
 import { apolloClient } from '../../../graphql/apolloClient';

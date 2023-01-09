@@ -1,6 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
 import { Main } from '../components/Main';
-import { ProductDetails } from '../components/Product';
 import {
   CreateProductReviewDocument,
   CreateProductReviewMutation,
