@@ -1,4 +1,5 @@
 import { Main } from '../components/Main';
+import { NewsletterForm } from '../components/NewsletterForm';
 import {
   CreateProductReviewDocument,
   CreateProductReviewMutation,
@@ -27,7 +28,8 @@ const Home = () => {
   };
   return (
     <Main>
-      <button onClick={addReview}>Dodaj komentarz</button>
+      {/* <button onClick={addReview}>Dodaj komentarz</button> */}
+      <NewsletterForm />
     </Main>
   );
 };
