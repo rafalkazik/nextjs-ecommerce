@@ -3,10 +3,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormInput } from './FormInput';
 import { CheckoutFormData } from './CheckoutForm';
+import { useMutation } from 'react-query';
 
-// export interface NewsletterFormType {
-//     email: string;
-//   }
+const useAddToNewsletterMutation = () =>
+  useMutation('add-to-newsletter', async ({ email }: { email: string }) => {
+    await fetch('http://localhost:3001/api/hello/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+  });
 
 export const NewsletterForm = () => {
   const schema = yup
@@ -23,12 +29,10 @@ export const NewsletterForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const { mutate } = useAddToNewsletterMutation();
+
   const onSubmit = handleSubmit((data) => {
-    fetch('http://localhost:3001/api/hello/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: data.email }),
-    });
+    mutate(data);
   });
 
   return (
