@@ -20,6 +20,7 @@ const ProductIdPage = ({
       <ProductDetails
         data={{
           id: data.id,
+          slug: data.slug,
           title: data.name,
           description: data.description,
           thumbnailUrl: data.images[0].url,
