@@ -4,9 +4,11 @@ import { Rating } from './Rating';
 import { NextSeo } from 'next-seo';
 import ContentReactMarkdown from './ContentReactMarkdown';
 import { useCartState } from './Cart/CartBar';
+import { ProductReviewList } from './ProductReviewList';
 
 interface ProductDetails {
   id: string;
+  slug: string;
   title: string;
   description: string;
   thumbnailUrl: string;
@@ -61,6 +63,9 @@ export const ProductDetails = ({ data }: ProductProps) => {
         <p className='p-4'>$189.99</p>
 
         <Rating rating={data.rating} />
+      </div>
+      <div className='mt-4 flex flex-col items-center justify-between font-medium'>
+        <ProductReviewList productSlug={data.slug} />
       </div>
     </>
   );
