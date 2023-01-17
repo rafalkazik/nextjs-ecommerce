@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useMutation } from 'react-query';
-import { CheckoutFormData } from '../CheckoutForm';
+import { FormsData } from '../CheckoutForm';
 import { FormInput } from '../FormInput';
 
 export const ProductReviewForm = () => {
@@ -19,7 +19,7 @@ export const ProductReviewForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutFormData>({
+  } = useForm<FormsData>({
     resolver: yupResolver(schema),
   });
 
