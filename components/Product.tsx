@@ -4,7 +4,7 @@ import { Rating } from './Rating';
 import { NextSeo } from 'next-seo';
 import ContentReactMarkdown from './ContentReactMarkdown';
 import { useCartState } from './Cart/CartBar';
-import { ProductReviewList } from './ProductReviewList';
+import { ProductReviewContainer } from './ProductReview/ProductReviewContainer';
 
 interface ProductDetails {
   id: string;
@@ -52,7 +52,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
         className=' h-[350px] w-full object-scale-down sm:h-[450px] rounded-t-md'
       />
 
-      <h3 className='mt-4 text-sm text-gray-700 font-black p-4'>
+      <h3 className='mt-4 text-4xl text-gray-700 font-black p-4'>
         {data.title}
       </h3>
       <p className='mt-4 text-sm text-gray-700 p-4'>{data.description}</p>
@@ -65,7 +65,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
         <Rating rating={data.rating} />
       </div>
       <div className='mt-4 flex flex-col items-center justify-between font-medium'>
-        <ProductReviewList productSlug={data.slug} />
+        <ProductReviewContainer productSlug={data.slug} />
       </div>
     </>
   );

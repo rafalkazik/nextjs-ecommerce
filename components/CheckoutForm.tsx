@@ -3,7 +3,7 @@ import { FormInput } from './FormInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-export interface CheckoutFormData {
+export interface FormsData {
   firstName: string;
   lastName: string;
   email: string;
@@ -12,6 +12,10 @@ export interface CheckoutFormData {
   city: string;
   province: string;
   postalCode: string;
+  content: string;
+  headline: string;
+  name: string;
+  rating: number;
 }
 
 const schema = yup
@@ -58,7 +62,7 @@ const CheckoutForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutFormData>({
+  } = useForm<FormsData>({
     resolver: yupResolver(schema),
   });
 
@@ -72,14 +76,9 @@ const CheckoutForm = () => {
           <div className='max-w-lg px-4 mx-auto lg:px-8'>
             <form className='grid grid-cols-6 gap-4' onSubmit={onSubmit}>
               <div className='col-span-3'>
-                <label
-                  htmlFor='firstName'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  First Name
-                </label>
                 <FormInput
                   fieldName='firstName'
+                  label={'First Name'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -90,15 +89,9 @@ const CheckoutForm = () => {
               </div>
 
               <div className='col-span-3'>
-                <label
-                  htmlFor='lastName'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  Last Name
-                </label>
-
                 <FormInput
                   fieldName='lastName'
+                  label={'Last Name'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -109,15 +102,9 @@ const CheckoutForm = () => {
               </div>
 
               <div className='col-span-6'>
-                <label
-                  htmlFor='email'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  Email
-                </label>
-
                 <FormInput
                   fieldName='email'
+                  label={'Email'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -128,15 +115,9 @@ const CheckoutForm = () => {
               </div>
 
               <div className='col-span-6'>
-                <label
-                  htmlFor='phone'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  Phone
-                </label>
-
                 <FormInput
                   fieldName='phone'
+                  label={'Phone'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -147,15 +128,9 @@ const CheckoutForm = () => {
               </div>
 
               <div className='col-span-6'>
-                <label
-                  htmlFor='adress'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  Apartment, suite, etc.
-                </label>
-
                 <FormInput
                   fieldName='adress'
+                  label={'Apartment, suite, etc.'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -166,15 +141,9 @@ const CheckoutForm = () => {
               </div>
 
               <div className='col-span-6'>
-                <label
-                  htmlFor='city'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  City
-                </label>
-
                 <FormInput
                   fieldName='city'
+                  label={'City'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -184,15 +153,9 @@ const CheckoutForm = () => {
                 />
               </div>
               <div className='col-span-3'>
-                <label
-                  htmlFor='province'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  State / Province
-                </label>
-
                 <FormInput
                   fieldName='province'
+                  label={'State / Province'}
                   type='text'
                   register={register}
                   errors={errors}
@@ -202,15 +165,9 @@ const CheckoutForm = () => {
                 />
               </div>
               <div className='col-span-3'>
-                <label
-                  htmlFor='postalCode'
-                  className='block text-xs font-medium text-gray-700'
-                >
-                  Postal code
-                </label>
-
                 <FormInput
                   fieldName='postalCode'
+                  label={'Postal code'}
                   type='text'
                   register={register}
                   errors={errors}

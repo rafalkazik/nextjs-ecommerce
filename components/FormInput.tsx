@@ -1,11 +1,12 @@
 import { FieldErrorsImpl, FieldPath, UseFormRegister } from 'react-hook-form';
-import { CheckoutFormData } from './CheckoutForm';
+import { FormsData } from './CheckoutForm';
 
 interface FormInputTypes {
-  fieldName: FieldPath<CheckoutFormData>;
+  fieldName: FieldPath<FormsData>;
+  label: string;
   type: string;
-  register: UseFormRegister<CheckoutFormData>;
-  errors: Partial<FieldErrorsImpl<CheckoutFormData>>;
+  register: UseFormRegister<FormsData>;
+  errors: Partial<FieldErrorsImpl<FormsData>>;
   isRequired: boolean;
   maximLength: number;
   minimLength: number;
@@ -13,6 +14,7 @@ interface FormInputTypes {
 
 export const FormInput = ({
   fieldName,
+  label,
   type,
   register,
   errors,
@@ -21,7 +23,11 @@ export const FormInput = ({
   minimLength,
 }: FormInputTypes) => {
   return (
-    <>
+    <label
+      htmlFor={fieldName}
+      className='block text-xs font-medium text-gray-700'
+    >
+      {label}
       <input
         type={type}
         className='w-full mt-1 border-gray-200 rounded-md shadow-sm sm:text-sm'
@@ -45,6 +51,6 @@ export const FormInput = ({
           {errors[fieldName]?.message}
         </span>
       )}
-    </>
+    </label>
   );
 };
