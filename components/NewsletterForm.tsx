@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormInput } from './FormInput';
-import { CheckoutFormData } from './CheckoutForm';
+import { FormsData } from './CheckoutForm';
 import { useMutation } from 'react-query';
 
 const useAddToNewsletterMutation = () =>
@@ -25,7 +25,7 @@ export const NewsletterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutFormData>({
+  } = useForm<FormsData>({
     resolver: yupResolver(schema),
   });
 
@@ -40,6 +40,7 @@ export const NewsletterForm = () => {
       <div className='col-span-6'>
         <FormInput
           fieldName='email'
+          label={'Email adress'}
           type='text'
           register={register}
           errors={errors}

@@ -1,7 +1,8 @@
 import {
   ReviewContentFragment,
   useGetReviewsForProductSlugQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
+import { ProductReviewListItem } from './ProductReviewListItem';
 
 interface ProductReviewListProps {
   productSlug: string;
@@ -17,25 +18,10 @@ export const ProductReviewList = ({ productSlug }: ProductReviewListProps) => {
     return null;
   }
   return (
-    <ul>
+    <ul className='w-full my-10'>
       {data.product.reviews.map((review) => (
-        <ProductReviewItem key={review.id} review={review} />
+        <ProductReviewListItem key={review.id} review={review} />
       ))}
     </ul>
-  );
-};
-
-interface ProductReviewItemProps {
-  review: ReviewContentFragment;
-}
-
-const ProductReviewItem = ({ review }: ProductReviewItemProps) => {
-  return (
-    <li>
-      <h3>{review.headline}</h3>
-      <p>{review.content}</p>
-      <div>{review.rating}</div>
-      <footer>{review.name}</footer>
-    </li>
   );
 };
