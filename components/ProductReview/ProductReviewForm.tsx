@@ -24,7 +24,7 @@ export const ProductReviewForm = () => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    mutate(data);
+    console.log(data);
   });
 
   return (
