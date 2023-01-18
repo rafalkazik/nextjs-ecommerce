@@ -10,7 +10,7 @@ export const ProductReviewContainer = ({
 }: ProductReviewContainerProps) => {
   return (
     <div className='w-full'>
-      <ProductReviewForm />
+      <ProductReviewForm productSlug={productSlug} />
       <ProductReviewList productSlug={productSlug} />
     </div>
   );

@@ -4,12 +4,21 @@ import * as yup from 'yup';
 import { useMutation } from 'react-query';
 import { FormsData } from '../CheckoutForm';
 import { FormInput } from '../FormInput';
+import {
+  GetReviewsForProductSlugDocument,
+  useCreateProductReviewMutation,
+} from '../../generated/graphql';
 
-export const ProductReviewForm = () => {
+interface ProductReviewFormProps {
+  productSlug: string;
+}
+
+export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
   const schema = yup
     .object({
       content: yup.string().required('This field is required.'),
       headline: yup.string().required('This field is required.'),
+      email: yup.string().email().required('This field is required.'),
       name: yup.string().required('This field is required.'),
       rating: yup.number().min(1).max(5).required('This field is required.'),
     })
@@ -23,8 +32,30 @@ export const ProductReviewForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const [createReview, { data, loading, error }] =
+    useCreateProductReviewMutation({
+      refetchQueries: [
+        {
+          query: GetReviewsForProductSlugDocument,
+          variables: { slug: productSlug },
+        },
+      ],
+    });
+  const addReview = () => {};
+
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    createReview({
+      variables: {
+        review: {
+          ...data,
+          product: {
+            connect: {
+              slug: productSlug,
+            },
+          },
+        },
+      },
+    });
   });
 
   return (
@@ -44,10 +75,22 @@ export const ProductReviewForm = () => {
           minimLength={2}
         />
       </div>
-      <div className='col-span-6'>
+      <div className='col-span-3'>
         <FormInput
           fieldName='headline'
           label='Headline'
+          type='text'
+          register={register}
+          errors={errors}
+          isRequired={true}
+          maximLength={20}
+          minimLength={2}
+        />
+      </div>
+      <div className='col-span-3'>
+        <FormInput
+          fieldName='email'
+          label='Email'
           type='text'
           register={register}
           errors={errors}
