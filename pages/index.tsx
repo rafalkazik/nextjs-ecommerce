@@ -4,19 +4,18 @@ import {
   CreateProductReviewDocument,
   CreateProductReviewMutation,
   CreateProductReviewMutationVariables,
+  useCreateProductReviewMutation,
 } from '../generated/graphql';
 import { apolloClient } from '../graphql/apolloClient';
 
 const Home = () => {
-  const addReview = async () => {
-    const data = await apolloClient.mutate<
-      CreateProductReviewMutation,
-      CreateProductReviewMutationVariables
-    >({
-      mutation: CreateProductReviewDocument,
+  const [createReview, { data, loading, error }] =
+    useCreateProductReviewMutation();
+  const addReview = () => {
+    createReview({
       variables: {
         review: {
-          headline: 'SUPERANCKO',
+          headline: 'SUPERANCKOOOOOOOOOOOO18/01/23',
           name: 'Rafał',
           email: 'test@gmail.com',
           content: 'Super produkt, serio!',
@@ -24,8 +23,8 @@ const Home = () => {
         },
       },
     });
-    console.log(data);
   };
+
   return (
     <Main>
       {/* <button onClick={addReview}>Dodaj komentarz</button> */}
