@@ -6,6 +6,7 @@ import { FormsData } from '../CheckoutForm';
 import { FormInput } from '../FormInput';
 import {
   GetReviewsForProductSlugDocument,
+  GetReviewsForProductSlugQuery,
   useCreateProductReviewMutation,
 } from '../../generated/graphql';
 
@@ -34,12 +35,39 @@ export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
 
   const [createReview, { data, loading, error }] =
     useCreateProductReviewMutation({
-      refetchQueries: [
-        {
+      // refetchQueries: [
+      //   {
+      //     query: GetReviewsForProductSlugDocument,
+      //     variables: { slug: productSlug },
+      //   },
+      // ],
+      update(cache, result) {
+        const originalReviewsQuery =
+          cache.readQuery<GetReviewsForProductSlugQuery>({
+            query: GetReviewsForProductSlugDocument,
+            variables: { slug: productSlug },
+          });
+        if (!originalReviewsQuery?.product?.reviews || !result.data?.review) {
+          return;
+        }
+
+        const newReviewsQuery = {
+          ...originalReviewsQuery,
+          product: {
+            ...originalReviewsQuery.product,
+            reviews: [
+              ...originalReviewsQuery.product.reviews,
+              result.data.review,
+            ],
+          },
+        };
+
+        cache.writeQuery({
           query: GetReviewsForProductSlugDocument,
           variables: { slug: productSlug },
-        },
-      ],
+          data: newReviewsQuery,
+        });
+      },
     });
   const addReview = () => {};
 
@@ -53,6 +81,14 @@ export const ProductReviewForm = ({ productSlug }: ProductReviewFormProps) => {
               slug: productSlug,
             },
           },
+        },
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        review: {
+          __typename: 'Review',
+          id: (-Math.random()).toString(32),
+          ...data,
         },
       },
     });

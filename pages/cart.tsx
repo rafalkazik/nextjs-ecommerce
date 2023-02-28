@@ -38,6 +38,12 @@ const CartContent = () => {
           </li>
         ))}
       </ul>
+      <button
+        type='button'
+        className='block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg'
+      >
+        Zamów
+      </button>
     </div>
   );
 };
