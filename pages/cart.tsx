@@ -1,7 +1,46 @@
 import { useCartState } from '../components/Cart/CartBar';
+import { loadStripe } from '@stripe/stripe-js';
+import Stripe from 'stripe';
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const CartContent = () => {
   const cartState = useCartState();
+
+  const pay = async () => {
+    const stripe = await stripePromise;
+
+    if (!stripe) {
+      throw new Error('Stripe not loaded');
+    }
+
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        cartState.items.map((cartItem) => {
+          return {
+            price_data: {
+              currency: 'PLN',
+              unit_amount: cartItem.price * 100,
+              product_data: { name: cartItem.title },
+            },
+            quantity: cartItem.count,
+          };
+        })
+      ),
+    });
+
+    const session: {
+      id: string;
+      session: Stripe.Response<Stripe.Checkout.Session>;
+    } = await res.json();
+
+    await stripe.redirectToCheckout({ sessionId: session.id.id });
+  };
+
   return (
     <div className='col-span-2'>
       <ul className='divide-y divide-gray-200'>
@@ -40,6 +79,7 @@ const CartContent = () => {
       </ul>
       <button
         type='button'
+        onClick={pay}
         className='block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg'
       >
         Zamów
