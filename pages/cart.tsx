@@ -37,7 +37,7 @@ const CartContent = () => {
       id: string;
       session: Stripe.Response<Stripe.Checkout.Session>;
     } = await res.json();
-
+    // @ts-ignore
     await stripe.redirectToCheckout({ sessionId: session.id.id });
   };
 
